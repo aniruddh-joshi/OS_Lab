@@ -1,0 +1,79 @@
+create database employees;
+
+use employees;
+
+create table emp_info(
+emp_id int not null primary key,
+first_name varchar (20),
+last_name varchar(20),
+city varchar(20),
+department varchar(20),
+dep_id int(10),
+join_date date,
+salary decimal(10,2));
+
+
+INSERT INTO EMP_INFO
+VALUES
+    (1, 'John', 'Doe', 'New York', 'IT', 101, '2023-10-20', 50000.00),
+    (2, 'Jane', 'Smith', 'Los Angeles', 'HR', 102, '2023-10-21', 45000.00),
+    (3, 'David', 'Brown', 'Chicago', 'Finance', 103, '2023-10-22', 55000.00),
+    (4, 'Mary', 'Johnson', 'San Francisco', 'Marketing', 104, '2023-10-23', 48000.00),
+    (5, 'Michael', 'Williams', 'Boston', 'IT', 101, '2023-10-24', 52000.00),
+    (6, 'Sarah', 'Wilson', 'Seattle', 'HR', 102, '2023-10-25', 46000.00),
+    (7, 'Robert', 'Lee', 'Dallas', 'Finance', 103, '2023-10-26', 56000.00),
+    (8, 'Linda', 'Davis', 'Houston', 'Marketing', 104, '2023-10-27', 49000.00),
+    (9, 'William', 'Miller', 'Miami', 'IT', 101, '2023-10-28', 53000.00),
+    (10, 'Karen', 'Moore', 'Denver', 'HR', 102, '2023-10-29', 47000.00);
+
+
+
+ select count(*) from EMP_INFO where department='HR';
+
+
+alter table EMP_INFO
+add project varchar(40);
+
+
+update EMP_INFO
+set first_name = UPPER(first_name),last_name = UPPER(last_name),city = LOWER(city);
+
+
+select * from EMP_INFO where first_name like 'S%H';
+
+
+select distinct emp_id from EMP_INFO ;
+
+
+select salary from EMP_INFO order by salary DESC;
+
+
+select * from EMP_INFO where emp_id not in(110,220);
+
+
+select * from EMP_INFO where project is null;
+
+
+update EMP_INFO
+set first_name = 'Jim'
+where emp_id = 118;
+
+
+delete from EMP_INFO
+where emp_id=110;
+
+
+SELECT Emp_ID,
+       MAX(salary) AS Max_Salary,
+       MIN(salary) AS Min_Salary,
+       AVG(salary) AS Avg_Salary
+FROM EMP_INFO
+GROUP BY emp_id;
+
+
+SELECT SUM(salary) AS TotalSalary
+FROM EMP_INFO
+WHERE salary > 12000;
+
+
+select * from EMP_INFO where mod(emp_id,2) <> 0;
