@@ -1,79 +1,108 @@
-create database employees;
+Certainly! Here are the SQL queries for the tasks you've mentioned:
 
-use employees;
+1. **Create a table EMPLOYEE:**
+   ```sql
+   CREATE TABLE EMPLOYEE (
+       Emp_no INT AUTO_INCREMENT PRIMARY KEY,
+       E_name VARCHAR(255),
+       Gender VARCHAR(10),
+       Date_of_birth DATE,
+       Dept_name VARCHAR(255),
+       Job_id VARCHAR(50),
+       Salary DECIMAL(10,2)
+   );
+   ```
 
-create table emp_info(
-emp_id int not null primary key,
-first_name varchar (20),
-last_name varchar(20),
-city varchar(20),
-department varchar(20),
-dep_id int(10),
-join_date date,
-salary decimal(10,2));
+2. **Insert 10 records:**
+   ```sql
+   INSERT INTO EMPLOYEE (E_name, Gender, Date_of_birth, Dept_name, Job_id, Salary)
+   VALUES
+       ('John', 'Male', '1990-01-01', 'HR', 'HR1', 50000),
+       ('Jane', 'Female', '1992-05-15', 'IT', 'IT1', 60000),
+       -- Add more records as needed
+       ;
+   ```
 
+3. **Update the First name ROHIT instead of RIYA for Emp no 100:**
+   ```sql
+   UPDATE EMPLOYEE SET E_name = 'ROHIT' WHERE Emp_no = 100;
+   ```
 
-INSERT INTO EMP_INFO
-VALUES
-    (1, 'John', 'Doe', 'New York', 'IT', 101, '2023-10-20', 50000.00),
-    (2, 'Jane', 'Smith', 'Los Angeles', 'HR', 102, '2023-10-21', 45000.00),
-    (3, 'David', 'Brown', 'Chicago', 'Finance', 103, '2023-10-22', 55000.00),
-    (4, 'Mary', 'Johnson', 'San Francisco', 'Marketing', 104, '2023-10-23', 48000.00),
-    (5, 'Michael', 'Williams', 'Boston', 'IT', 101, '2023-10-24', 52000.00),
-    (6, 'Sarah', 'Wilson', 'Seattle', 'HR', 102, '2023-10-25', 46000.00),
-    (7, 'Robert', 'Lee', 'Dallas', 'Finance', 103, '2023-10-26', 56000.00),
-    (8, 'Linda', 'Davis', 'Houston', 'Marketing', 104, '2023-10-27', 49000.00),
-    (9, 'William', 'Miller', 'Miami', 'IT', 101, '2023-10-28', 53000.00),
-    (10, 'Karen', 'Moore', 'Denver', 'HR', 102, '2023-10-29', 47000.00);
+4. **Add a new column HIREDATE:**
+   ```sql
+   ALTER TABLE EMPLOYEE ADD COLUMN HIREDATE DATE;
+   ```
 
+5. **Display details of Employees in MECHANICAL department:**
+   ```sql
+   SELECT * FROM EMPLOYEE WHERE Dept_name = 'MECHANICAL';
+   ```
 
+6. **Delete the email_id of employee J/mes:**
+   ```sql
+   UPDATE EMPLOYEE SET email = NULL WHERE E_name = 'J/mes';
+   ```
 
- select count(*) from EMP_INFO where department='HR';
+7. **Display complete record of employees in SALES Department:**
+   ```sql
+   SELECT * FROM EMPLOYEE WHERE Dept_name = 'SALES';
+   ```
 
+8. **Query to find names of employees whose first names start with "S":**
+   ```sql
+   SELECT * FROM EMPLOYEE WHERE E_name LIKE 'S%';
+   ```
 
-alter table EMP_INFO
-add project varchar(40);
+9. **Delete the record of an employee with Emp_no 106:**
+   ```sql
+   DELETE FROM EMPLOYEE WHERE Emp_no = 106;
+   ```
 
+10. **Joins in MySQL:**
+    - INNER JOIN:
+      ```sql
+      SELECT EMPLOYEE.Emp_no, EMPLOYEE.E_name, DEPARTMENT.Dept_name
+      FROM EMPLOYEE
+      INNER JOIN DEPARTMENT ON EMPLOYEE.Dept_id = DEPARTMENT.Dept_id;
+      ```
+    - LEFT JOIN:
+      ```sql
+      SELECT EMPLOYEE.Emp_no, EMPLOYEE.E_name, DEPARTMENT.Dept_name
+      FROM EMPLOYEE
+      LEFT JOIN DEPARTMENT ON EMPLOYEE.Dept_id = DEPARTMENT.Dept_id;
+      ```
 
-update EMP_INFO
-set first_name = UPPER(first_name),last_name = UPPER(last_name),city = LOWER(city);
+11. **Query to display names of employees whose name contains "A" as the last alphabet:**
+    ```sql
+    SELECT * FROM EMPLOYEE WHERE E_name LIKE '%A';
+    ```
 
+12. **Query to display names and department IDs in ascending and descending order:**
+    ```sql
+    -- Ascending order
+    SELECT E_name, Dept_id FROM EMPLOYEE ORDER BY E_name ASC;
 
-select * from EMP_INFO where first_name like 'S%H';
+    -- Descending order
+    SELECT E_name, Dept_id FROM EMPLOYEE ORDER BY E_name DESC;
+    ```
 
+13. **Query to uppercase the name and lowercase the gender:**
+    ```sql
+    UPDATE EMPLOYEE SET E_name = UPPER(E_name), Gender = LOWER(Gender);
+    ```
 
-select distinct emp_id from EMP_INFO ;
+14. **Foreign key and adding foreign key to a table:**
+    A foreign key is a field in a table that is a primary key in another table. To add a foreign key:
+    ```sql
+    ALTER TABLE EMPLOYEE
+    ADD CONSTRAINT fk_Department
+    FOREIGN KEY (Dept_id) REFERENCES DEPARTMENT(Dept_id);
+    ```
 
+15. **Query to display details with "NOT GIVEN" if department id is null:**
+    ```sql
+    SELECT Emp_no, E_name, COALESCE(Dept_name, 'NOT GIVEN') AS Dept_name
+    FROM EMPLOYEE;
+    ```
 
-select salary from EMP_INFO order by salary DESC;
-
-
-select * from EMP_INFO where emp_id not in(110,220);
-
-
-select * from EMP_INFO where project is null;
-
-
-update EMP_INFO
-set first_name = 'Jim'
-where emp_id = 118;
-
-
-delete from EMP_INFO
-where emp_id=110;
-
-
-SELECT Emp_ID,
-       MAX(salary) AS Max_Salary,
-       MIN(salary) AS Min_Salary,
-       AVG(salary) AS Avg_Salary
-FROM EMP_INFO
-GROUP BY emp_id;
-
-
-SELECT SUM(salary) AS TotalSalary
-FROM EMP_INFO
-WHERE salary > 12000;
-
-
-select * from EMP_INFO where mod(emp_id,2) <> 0;
+Please adjust the column names and data types according to your actual schema.
