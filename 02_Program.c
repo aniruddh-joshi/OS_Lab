@@ -45,3 +45,4 @@ pid2=getpid();
 printf(“\n the child process ID is %d\n”, pid2);
 }
 } */
+update
